@@ -32,3 +32,9 @@ redis-server
 ```bash
 redis-cli -h localhost -p 6379
 ```
+
+## Build and run the docker container
+```bash
+docker build -t url-shortener-flask .
+docker run -p 5000:5000 url-shortener-flask
+```
