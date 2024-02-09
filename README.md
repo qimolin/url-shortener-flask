@@ -15,7 +15,7 @@ pip install -r requirements.txt
 
 ## Run the app
 ```bash
-python -m flask run
+flask run
 ```
 
 ## Install redis-cli
@@ -28,7 +28,7 @@ brew install redis
 redis-server
 ```
 
-## query redis
+## Query redis
 ```bash
 redis-cli -h localhost -p 6379
 ```
