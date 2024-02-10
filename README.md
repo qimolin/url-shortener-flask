@@ -13,9 +13,9 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-## Run the app
+## Run the app (with reload)
 ```bash
-flask run
+flask run --reload
 ```
 
 ## Install redis-cli
