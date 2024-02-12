@@ -36,7 +36,8 @@ def get_original_url(id):
 
 @app.put('/<id>')
 def update_original_url(id):
-    new_url = request.get_json().get('url')
+    data = request.get_json()
+    new_url = data.get('url')
     updated_url = url_processor.update_original_url(id, new_url)
     
     if updated_url == "Invalid URL":
