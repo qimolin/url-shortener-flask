@@ -7,7 +7,7 @@ url_processor = URL()
 @app.post('/')
 def shorten_url():
 
-    data = request.get_json()
+    data = request.get_json(force=True)
     original_url = data.get('value')
     shortened_url = url_processor.generate_shortened_url(original_url)
     
@@ -36,7 +36,7 @@ def get_original_url(id):
 
 @app.put('/<id>')
 def update_original_url(id):
-    data = request.get_json()
+    data = request.get_json(force=True)
     new_url = data.get('url')
     updated_url = url_processor.update_original_url(id, new_url)
     
