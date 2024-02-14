@@ -10,7 +10,7 @@ class URL:
         if self.__is_valid(url):
 
             # create key to hold ID incrementer
-            url_id = self.redis_client.incr('url_counter')
+            url_id = self.redis_client.incr('url_counter', 100)
 
             # save mapping
             shortened_url = self.__encode_base62(url_id)
