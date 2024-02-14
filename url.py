@@ -39,7 +39,7 @@ class URL:
         for key in keys:
             if key != 'url_counter':
                 self.redis_client.delete(key)
-        self.redis_client.set('url_counter', 0)
+        self.redis_client.set('url_counter', 100)
         
         return "All URLs deleted"
     
