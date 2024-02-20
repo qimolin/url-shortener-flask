@@ -30,13 +30,12 @@ class URL:
         keys = self.redis_client.keys('*')
 
         key_value_pairs = dict()
-
         for key in keys:
             shortened_url = None
             if key != 'url_counter' and not key.startswith('user'):
                 shortened_url = key
-                original_url = self.redis_client.get(shortened_url)
             if user_id == self.redis_client.get(f"user:{shortened_url}"):
+                original_url = self.redis_client.get(shortened_url)
                 key_value_pairs[f'http://localhost:5000/{shortened_url}'] = original_url
 
         return key_value_pairs
@@ -57,7 +56,8 @@ class URL:
                 self.redis_client.delete(shortened_url)
                 deleted += 1
                 self.redis_client.delete(f"user:{shortened_url}")
-        self.redis_client.set('url_counter', current_url_counter - deleted)
+        new_url_counter = int(current_url_counter) - deleted
+        self.redis_client.set('url_counter', new_url_counter)
         
         return "All URLs deleted"
     
