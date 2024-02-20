@@ -17,7 +17,7 @@ def auth_required(return_user_id=False, check_ownership=False):
             token = token.split(' ')[1] if token.startswith('Bearer ') else token
 
             # Load public key
-            public_key = load_public_key()
+            public_key = load_public_key(token)
 
             # Verify the JWT token
             result = verify_jwt(token, public_key)
