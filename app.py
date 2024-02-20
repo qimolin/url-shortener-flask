@@ -1,28 +1,32 @@
 from flask import Flask, request, redirect
-from url import URL
+from modules.url import URL
+from middlewares.auth_middleware import auth_required
 
 app = Flask(__name__)
 url_processor = URL()
 
 @app.post('/')
-def shorten_url():
+@auth_required(return_user_id=True)
+def shorten_url(user_id):
 
     data = request.get_json(force=True)
     original_url = data.get('value')
-    shortened_url = url_processor.generate_shortened_url(original_url)
+    shortened_url = url_processor.generate_shortened_url(original_url, user_id)
     
     status_code = 201 if shortened_url != "Invalid URL" else 400
 
     return {"id": shortened_url}, status_code
 
 @app.get('/')
-def get_all_urls():
-    all_urls = url_processor.get_all_urls()
+@auth_required(return_user_id=True)
+def get_all_urls_by_user(user_id):
+    all_urls = url_processor.get_all_urls_by_user(user_id)
     return all_urls, 200
 
 @app.delete('/')
-def delete_all_urls():
-    deleted = url_processor.delete_all_urls()
+@auth_required(return_user_id=True)
+def delete_all_urls_by_user(user_id):
+    deleted = url_processor.delete_all_urls_by_user(user_id)
     return deleted, 404
 
 @app.get('/<id>')
@@ -35,6 +39,7 @@ def get_original_url(id):
     return "URL not found", 404
 
 @app.put('/<id>')
+@auth_required(check_ownership=True)
 def update_original_url(id):
     data = request.get_json(force=True)
     new_url = data.get('url')
@@ -50,6 +55,7 @@ def update_original_url(id):
     return {"value":updated_url}, status_code
 
 @app.delete('/<id>')
+@auth_required(check_ownership=True)
 def delete_original_url(id):
     deleted = url_processor.delete_original_url(id)
     status_code = 204 if deleted == "URL deleted" else 404

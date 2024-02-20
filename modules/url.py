@@ -5,16 +5,19 @@ class URL:
     
     BASE62 = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
     redis_client = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
-
-    def generate_shortened_url(self, url):
+    
+    def generate_shortened_url(self, url, user_id):
         if self.__is_valid(url):
 
             # create key to hold ID incrementer
             url_id = self.redis_client.incr('url_counter', 100)
 
-            # save mapping
+            # save mapping from shortened URL to original URL
             shortened_url = self.__encode_base62(url_id)
             self.redis_client.set(shortened_url, url)
+
+            # save mapping from shortened URL to user ID
+            self.redis_client.set(f"user:{shortened_url}", user_id)
 
             return shortened_url
         else:
@@ -23,23 +26,38 @@ class URL:
     def get_original_url(self, shortened_url):
         return self.redis_client.get(shortened_url)
 
-    def get_all_urls(self):
+    def get_all_urls_by_user(self, user_id):
         keys = self.redis_client.keys('*')
-        
+
         key_value_pairs = dict()
-        
+
         for key in keys:
-            if key != 'url_counter':
-                key_value_pairs[f'http://localhost:5000/{key}'] = self.redis_client.get(key)
-        
+            shortened_url = None
+            if key != 'url_counter' and not key.startswith('user'):
+                shortened_url = key
+                original_url = self.redis_client.get(shortened_url)
+            if user_id == self.redis_client.get(f"user:{shortened_url}"):
+                key_value_pairs[f'http://localhost:5000/{shortened_url}'] = original_url
+
         return key_value_pairs
+
+    def is_owner(self, user_id, shortened_url):
+        stored_user_id = self.redis_client.get(f"user:{shortened_url}")
+        return user_id == stored_user_id
     
-    def delete_all_urls(self):
+    def delete_all_urls_by_user(self, user_id):
         keys = self.redis_client.keys('*')
+        current_url_counter = self.redis_client.get('url_counter')
+        deleted = 0
         for key in keys:
-            if key != 'url_counter':
-                self.redis_client.delete(key)
-        self.redis_client.set('url_counter', 100)
+            shortened_url = None
+            if key != 'url_counter' and not key.startswith('user'):
+                shortened_url = key
+            if user_id == self.redis_client.get(f"user:{shortened_url}"):
+                self.redis_client.delete(shortened_url)
+                deleted += 1
+                self.redis_client.delete(f"user:{shortened_url}")
+        self.redis_client.set('url_counter', current_url_counter - deleted)
         
         return "All URLs deleted"
     
