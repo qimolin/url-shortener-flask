@@ -44,6 +44,9 @@ class URL:
         stored_user_id = self.redis_client.get(f"user:{shortened_url}")
         return user_id == stored_user_id
     
+    def url_exists(self, shortened_url):
+        return self.redis_client.get(shortened_url) != None
+    
     def delete_all_urls_by_user(self, user_id):
         keys = self.redis_client.keys('*')
         current_url_counter = self.redis_client.get('url_counter')

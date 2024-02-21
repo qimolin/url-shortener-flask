@@ -14,10 +14,11 @@ def auth_required(return_user_id=False, check_ownership=False):
 
             # Extract the JWT token from the Authorization header
             token = token.split(' ')[1] if token.startswith('Bearer ') else token
-
+            
             # Verify authentication
             result = verify_auth(token)
             valid = result.get('valid')
+            
             if not valid:
                 return {'error': 'Invalid JWT token'}, 403
 
@@ -26,7 +27,10 @@ def auth_required(return_user_id=False, check_ownership=False):
 
             if check_ownership:
                 url_service = URL()
-                if not url_service.is_owner(user_id, kwargs.get('id')):
+                shortened_url_id = kwargs.get('id')
+                if not url_service.url_exists(shortened_url_id):
+                    return {'error': 'URL does not exist'}, 404
+                if not url_service.is_owner(user_id, shortened_url_id):
                     return {'error': 'User is not the owner of the URL'}, 403
 
             if return_user_id:

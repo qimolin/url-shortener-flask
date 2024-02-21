@@ -45,12 +45,7 @@ def update_original_url(id):
     new_url = data.get('url')
     updated_url = url_processor.update_original_url(id, new_url)
     
-    if updated_url == "Invalid URL":
-        status_code = 400
-    elif updated_url == "URL not found":
-        status_code = 404
-    else:
-        status_code = 200
+    status_code = 200 if updated_url != "Invalid URL" else 400
         
     return {"value":updated_url}, status_code
 
