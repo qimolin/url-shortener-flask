@@ -3,7 +3,7 @@ import requests
 import json
 import csv
 import random
-
+import os
 
 class TestApi(unittest.TestCase):
     #with fastapi default port is 8000 with flask is 5000
@@ -11,7 +11,8 @@ class TestApi(unittest.TestCase):
     
 
     def populate_variables_from_csv(self):
-        with open('read_from.csv', 'r') as f:
+        csv_file_path = os.path.join(os.path.dirname(__file__), 'read_from.csv')
+        with open(csv_file_path, 'r') as f:
             reader = csv.reader(f)
             next(reader, None)
             data = [row for row in reader if len(row) >= 5]
