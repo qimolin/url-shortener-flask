@@ -59,7 +59,7 @@ class URL:
                 self.redis_client.delete(shortened_url)
                 deleted += 1
                 self.redis_client.delete(f"user:{shortened_url}")
-        new_url_counter = int(current_url_counter) - deleted
+        new_url_counter = int(current_url_counter) - (deleted * 100)
         self.redis_client.set('url_counter', new_url_counter)
         
         return "All URLs deleted"
@@ -69,6 +69,8 @@ class URL:
         if url == None:
             return "URL not found"
         self.redis_client.delete(shortened_url)
+        current_url_counter = self.redis_client.get('url_counter')
+        self.redis_client.set('url_counter', int(current_url_counter) - 100)
         return "URL deleted"
     
     def update_original_url(self, shortened_url, new_url):
