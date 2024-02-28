@@ -1,10 +1,12 @@
 import re
 import redis
 
+from settings import BASE_URL, REDIS_HOST, REDIS_PORT
+
 class URL:
     
     BASE62 = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    redis_client = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
+    redis_client = redis.Redis(host=REDIS_HOST, port=int(REDIS_PORT), db=0, decode_responses=True)
     
     def generate_shortened_url(self, url, user_id):
         if self.__is_valid(url):
@@ -36,7 +38,7 @@ class URL:
                 shortened_url = key
             if user_id == self.redis_client.get(f"user:{shortened_url}"):
                 original_url = self.redis_client.get(shortened_url)
-                key_value_pairs[f'http://localhost:5000/{shortened_url}'] = original_url
+                key_value_pairs[f'{BASE_URL}/{shortened_url}'] = original_url
 
         return key_value_pairs
 

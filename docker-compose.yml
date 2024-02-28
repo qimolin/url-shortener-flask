@@ -1,11 +1,17 @@
 version: '3.7'
 services:
-  api:
+  url-shortener:
     build: .
     ports:
       - 5000:5000
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - BASE_URL=http://localhost:5000
+      - AUTH_SERVICE_URL=auth-service:5001
     networks:
       - url-shortener
+      - shared-network
     depends_on:
       - redis
 
@@ -21,6 +27,9 @@ services:
 networks:
   url-shortener:
     driver: bridge
+  shared-network:
+    name: shared-network
+    driver: external
 
 volumes:
   redis-data:
