@@ -28,8 +28,7 @@ networks:
   url-shortener:
     driver: bridge
   shared-network:
-    name: shared-network
-    driver: external
+    external: true
 
 volumes:
   redis-data:
