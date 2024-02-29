@@ -1,0 +1,219 @@
+{
+	"info": {
+		"_postman_id": "df38c7d7-0507-43a6-a0db-42febaad4a92",
+		"name": "URL Shortener",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13076959",
+		"_collection_link": "https://speeding-shadow-627632.postman.co/workspace/Web-Services-and-Cloud-Based-Sy~aeac0457-2a20-4432-84ef-77405c99de57/collection/13076959-df38c7d7-0507-43a6-a0db-42febaad4a92?action=share&source=collection_link&creator=13076959"
+	},
+	"item": [
+		{
+			"name": "GET all URLs",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1c2VyX2lkIjoiNjVlMDgxOWNlN2VhNmI2NjkxYTIxZDc1IiwiZXhwIjoxNzA5MzA5NzEzLjkzMzUzfQ.UFuyFCz1W5JHPfK9fXGmTcofTRGPzNyGa8pemWKoh4Uu2wb_LCS7-9QctEtZRafTktGIhNX7Ql3eejxVStRO0eGL6rsCtfkFocdNxyBT-cVPFcL3JQcEqLznK3okmwBxktG42sp0AEpEed05BJkXZGjNRSAQGKK6l_h9srm2A5r2g89P1HQlVtjS8Feb37IpsjWK4WCkB82RJSRYlmBhIIHw6ZMeX0veo-xwPpK5zIbgvAAMef9DY-5mJRFBzSEsBZY1mDigIREMUaTnY2Rpl8mGGlavyD6uw285murbv5Jq9mwdJY3UERmnPeKv7Re6YYpXMTJ967fgUB7kx3rNbA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{shortenerURL}}/",
+					"host": [
+						"{{shortenerURL}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET URL by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{shortenerURL}}/cU",
+					"host": [
+						"{{shortenerURL}}"
+					],
+					"path": [
+						"cU"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST URL",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1c2VyX2lkIjoiNjVlMDg2NWNmYmRjYjdmMGEyYWU2ZmEzIiwiZXhwIjoxNzA5Mjk5NjgzLjIwODg3NX0.xANOKlJakhWLIFfSsjI_aGm_de4cG4vV_IdjjE_cpAhqA9ovxbPYRohB3iFV0VMdH30I9stufOr6DFp7cpt0yDP5_HejR0qpUDWwlUnV17JkgMQmVYJZwELjVbKlGFikLznE2UwwZsGeEWKNeZvfqNjNQmt0hLszOMNI3YQFSh6zGlzKtNcKZH4w3kcHz4oP8ipxTKcga0LHJi9_8OVmgvY0i18WI4qsYZz7OAeth6Xmgx7mzaeSNS8ZEeAr3tj-tf9PCjpwAvOBgv_-Gqbp1h0Tbxp5iBCmfCsUfgEkrPg4ifkXUHtdqx6nycsBVF8HZ7eHfjXd6piUejAhhIlVqg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"value\": \"https://en.wikipedia.org/wiki/Docker_(software)\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{shortenerURL}}/",
+					"host": [
+						"{{shortenerURL}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT URL by id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1c2VyX2lkIjoiNjVkNzRjNGJiYjgyNzU5ZTBhMGE2ZjllIiwiZXhwIjoxNzA4NjkxNTA4LjE2MDE0OH0.MG6HfdyEKFyBRk7ft5I4QPCjaQ90H5p2myTw2NoiNV68eJvN_nhC3VwPUKzC6XOwQ5djAP1Z3M0btTtEvFPQbiX8MbbIMdbaDYg7XFlAy_wZyQW05ZRlmGL3v1teci5MPb8fBRslMhWye2gZJSo3kWj0h1Xjj9Uz-1DsaUogmb80P_BUDAU2Ig2BtHsyDOUakv1NrckC75ZWb9I0ZaqxZuTL9-9RyPAn8x43NNctkjD-oox2pIxjYAwZPE3VP4zYSOzBsqc7GZ5ojU9BwaShDMttyNVVIkIwYYXfZXaItQRuZEar_m12xqZGW-HCAkl8MyHLklCbqPjJEBDWALMd9g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"url\": \"uva.nl\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{shortenerURL}}/1C",
+					"host": [
+						"{{shortenerURL}}"
+					],
+					"path": [
+						"1C"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE URL by id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1c2VyX2lkIjoiNjVkM2RiZDNlNTI1MzI5M2Q0MTQwZTc5IiwiZXhwIjoxNzA4NDY2ODI4LjkyMjY3Nn0.LEj6Mt5eIKm6wTMSr6FakrPpR2le09GnpdKj2o1WzYSw6oinKWpXJoZ2v05dpXI4sMucVqqu_9caYsrqLuV0Q5KESy5IpA2r1tLrjpxuAO5W85PnqCm3RVRbRmddgyMangTP2NXqoUQS-x5a7Cv9dVQsYbLJC4NPZFMyA16ZCAVpvszl5iXdVFfrltWwABksj2JsIfKpiGAuWH_7oS_wrCaILIVtPLPNHY1vyFkkMGJ251-Srl1Z9mt_K_YnDQkzJp6jLiv0FM4kgziZArFWjfrz3YiaTz1c7QBVg5X76gVpzU_-xKZj0AFVE13D0zEsu3fRo989ZV-0xiD7zh2I1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{shortenerURL}}/3e",
+					"host": [
+						"{{shortenerURL}}"
+					],
+					"path": [
+						"3e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE all URLs",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1c2VyX2lkIjoiNjVkNTJjNTBhOTQxZDMyY2MwNmQ4NzExIiwiZXhwIjoxNzA4NTUyMTMzLjU4NzQ2OX0.KdpTVF2ky0VldbuizEJijpfo4jqeiDrLYFKeRAoPkdcfAzWgyMEqSGomTyTIw173dS2R42oTAgdMLiaGgoJ_Z2CN7ck40rfd2F1MSq1wOCj2ndWfRNzpDPxb4ul0h094Ac4ZjtTz6F0GJ13ahBVkrb02SXVkWohlpCrBmcTWSuOIdg-OEXMp8g2IoDZ9I_KB5cwPwGUGdhGf7uNlDHpSz4Mci9eBRdaQHFzJhH5RKZ3IvZRBXvq28Ct0aSlrbClAleK6uKA88Q64u3ZPhm-5dTbFzDQKokM3PSiolQ7Abqh7bfIXJXCBp0zy-YRjgqbA47BK4MQbd_j1m2wZIaNklg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{shortenerURL}}/",
+					"host": [
+						"{{shortenerURL}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

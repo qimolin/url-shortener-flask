@@ -39,7 +39,7 @@ docker build -t url-shortener-flask .
 docker run -p 5000:5000 url-shortener-flask
 ```
 
-## test data percistency locally: 
+## Test data percistency locally: 
 1- run `docker-compose up -d`
 2- run tests to populate data `python3 test_app.py`
 3- test data persists after running `docker-compose restart`
@@ -60,3 +60,11 @@ curl -X POST http://145.100.135.145:31660/ -H "Content-Type: application/json" -
 -d '{"value": "https://example12.com”}’
 
 - to check redis db `kubectl exec -it <redis-deployment-pod> -- redis-cli`
+
+## Test endpoints using Postman
+- Import the environment `Cluster.postman_environment.json` to Postman
+- Import the environment `Local.postman_environment.json` to Postman
+- Import the collection `URL Shortener.postman_collection.json` to Postman
+- Run the collection to test the endpoints
+- You will have to call the [auth service](https://github.com/qimolin/auth-service-flask) to get the token and use it in the headers of the other requests
+- Note: you can switch between the environments to test the endpoints on the local machine or the cluster
