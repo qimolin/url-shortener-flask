@@ -8,7 +8,7 @@ services:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - BASE_URL=http://localhost:5000
-      - AUTH_SERVICE_URL=auth-service:5001
+      - AUTH_SERVICE_URL=http://auth-service:5001/auth
     networks:
       - url-shortener
       - shared-network
